@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://stock-control-db.c610ys8g6hb0.us-east-1.rds.amazonaws.com:5432/stock_control_db
+    username: ${USUARIO}
+    password: ${SENHA}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate # Ou update durante desenvolvimento
+    show-sql: true
+
+  flyway:
+    enabled: true
