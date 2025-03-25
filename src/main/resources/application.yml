@@ -8,7 +8,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: validate # Ou update durante desenvolvimento
+      ddl-auto: validate
     show-sql: true
 
   flyway:
