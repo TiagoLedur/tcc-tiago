@@ -1,5 +1,6 @@
 package com.example.stock_control_api.model;
 
+import com.example.stock_control_api.model.enums.StatusPedido;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
