@@ -2,33 +2,31 @@ package com.example.stock_control_api.service;
 
 import com.example.stock_control_api.model.PedidoCompra;
 import com.example.stock_control_api.repository.PedidoCompraRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PedidoCompraService {
 
     private final PedidoCompraRepository pedidoCompraRepository;
 
-    public PedidoCompraService(PedidoCompraRepository pedidoCompraRepository) {
-        this.pedidoCompraRepository = pedidoCompraRepository;
-    }
-
-    public List<PedidoCompra> listar() {
+    public List<PedidoCompra> list() {
         return pedidoCompraRepository.findAll();
     }
 
-    public Optional<PedidoCompra> buscarPorId(Long id) {
+    public Optional<PedidoCompra> findById(Long id) {
         return pedidoCompraRepository.findById(id);
     }
 
-    public PedidoCompra salvar(PedidoCompra categoria) {
+    public PedidoCompra save(PedidoCompra categoria) {
         return pedidoCompraRepository.save(categoria);
     }
 
-    public void deletar(Long id) {
+    public void delete(Long id) {
         pedidoCompraRepository.deleteById(id);
     }
 
