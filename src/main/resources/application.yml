@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://stock-control-db.c610ys8g6hb0.us-east-1.rds.amazonaws.com:5432/stock_control_db
-    username: ${USUARIO}
+    url: jdbc:postgresql://solely-exemplary-primate.data-1.use1.tembo.io:5432/estoque-inteligente
+    username: postgres
     password: ${SENHA}
     driver-class-name: org.postgresql.Driver
 
