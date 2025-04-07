@@ -38,7 +38,7 @@ CREATE TABLE pedidos_compra (
     id BIGSERIAL PRIMARY KEY,
     fornecedor_id BIGINT REFERENCES fornecedores(id) ON DELETE SET NULL,
     data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20) NOT NULL CHECK (status IN ('Pendente', 'Recebido', 'Cancelado'))
+    status VARCHAR(20) NOT NULL CHECK (status IN ('PENDENTE', 'RECEBIDO', 'CANCELADO'))
 );
 
 -- Criando a tabela de Itens do Pedido de Compra
