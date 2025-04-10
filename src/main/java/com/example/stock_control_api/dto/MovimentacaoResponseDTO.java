@@ -1,21 +1,21 @@
 package com.example.stock_control_api.dto;
 
+import com.example.stock_control_api.model.enums.TipoMovimentacao;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
 public class MovimentacaoResponseDTO {
+
     private Long id;
-    private String nomeIngrediente;
-    private BigDecimal quantidade;
-    private String tipo;
-    private String observacao;
+    private Long ingredienteId;
+    private String ingredienteNome;
+    private TipoMovimentacao tipo;
+    private Double quantidade;
     private LocalDate dataMovimentacao;
+    private String observacao;
 }
 
