@@ -1,7 +1,7 @@
 package com.example.stock_control_api.controller;
 
-import com.example.stock_control_api.dto.MovimentacaoRequestDTO;
-import com.example.stock_control_api.dto.MovimentacaoResponseDTO;
+import com.example.stock_control_api.dto.movimentacao.MovimentacaoRequestDTO;
+import com.example.stock_control_api.dto.movimentacao.MovimentacaoResponseDTO;
 import com.example.stock_control_api.service.MovimentacaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

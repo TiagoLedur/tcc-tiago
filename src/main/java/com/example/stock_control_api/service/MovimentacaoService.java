@@ -1,7 +1,7 @@
 package com.example.stock_control_api.service;
 
-import com.example.stock_control_api.dto.MovimentacaoRequestDTO;
-import com.example.stock_control_api.dto.MovimentacaoResponseDTO;
+import com.example.stock_control_api.dto.movimentacao.MovimentacaoRequestDTO;
+import com.example.stock_control_api.dto.movimentacao.MovimentacaoResponseDTO;
 import com.example.stock_control_api.mapper.MovimentacaoMapper;
 import com.example.stock_control_api.model.Ingrediente;
 import com.example.stock_control_api.model.Movimentacao;

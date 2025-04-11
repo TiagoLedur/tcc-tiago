@@ -1,4 +1,4 @@
-package com.example.stock_control_api.dto;
+package com.example.stock_control_api.dto.movimentacao;
 
 import com.example.stock_control_api.model.enums.TipoMovimentacao;
 import jakarta.validation.constraints.NotNull;
