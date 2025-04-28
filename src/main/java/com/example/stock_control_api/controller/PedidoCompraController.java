@@ -1,47 +1,47 @@
 package com.example.stock_control_api.controller;
 
+import com.example.stock_control_api.dto.pedido.PedidoCompraRequestDTO;
+import com.example.stock_control_api.dto.pedido.PedidoCompraResponseDTO;
+import com.example.stock_control_api.mapper.PedidoCompraMapper;
 import com.example.stock_control_api.model.PedidoCompra;
 import com.example.stock_control_api.service.PedidoCompraService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("/api/pedidos-compra")
 @RequiredArgsConstructor
 public class PedidoCompraController {
 
     private final PedidoCompraService pedidoCompraService;
 
+    @PostMapping
+    public PedidoCompraResponseDTO criarPedido(@RequestBody @Valid PedidoCompraRequestDTO pedidoDTO) {
+        PedidoCompra pedido = pedidoCompraService.criarPedido(pedidoDTO);
+        return PedidoCompraMapper.toDTO(pedido);
+    }
+
     @GetMapping
-    public List<PedidoCompra> listAll() {
-        return pedidoCompraService.list();
+    public List<PedidoCompraResponseDTO> listarPedidos() {
+        return pedidoCompraService.listarPedidos()
+                .stream()
+                .map(PedidoCompraMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<PedidoCompra>> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(pedidoCompraService.findById(id));
+    public PedidoCompraResponseDTO buscarPorId(@PathVariable Long id) {
+        PedidoCompra pedido = pedidoCompraService.buscarPorId(id);
+        return PedidoCompraMapper.toDTO(pedido);
     }
 
-    @PostMapping
-    public ResponseEntity<PedidoCompra> create(@RequestBody PedidoCompra pedidoCompra) {
-        PedidoCompra novoPedido = pedidoCompraService.save(pedidoCompra);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidoCompra> update(@PathVariable Long id, @RequestBody PedidoCompra pedidoCompra) {
-        pedidoCompra.setId(id);
-        return ResponseEntity.ok(pedidoCompraService.save(pedidoCompra));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        pedidoCompraService.delete(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}/status")
+    public PedidoCompraResponseDTO atualizarStatus(@PathVariable Long id, @RequestParam String status) {
+        PedidoCompra pedido = pedidoCompraService.atualizarStatus(id, status);
+        return PedidoCompraMapper.toDTO(pedido);
     }
 }
