@@ -1,42 +1,35 @@
 package com.example.stock_control_api.controller;
 
-import com.example.stock_control_api.model.ItemPedidoCompra;
+import com.example.stock_control_api.dto.itempedido.ItemPedidoCompraRequestDTO;
+import com.example.stock_control_api.dto.itempedido.ItemPedidoCompraResponseDTO;
 import com.example.stock_control_api.service.ItemPedidoCompraService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/itens-pedido")
+@RequestMapping("/itens-pedido-compra")
 @RequiredArgsConstructor
 public class ItemPedidoCompraController {
 
     private final ItemPedidoCompraService itemPedidoCompraService;
 
     @GetMapping
-    public List<ItemPedidoCompra> listAll() {
-        return itemPedidoCompraService.list();
+    public ResponseEntity<List<ItemPedidoCompraResponseDTO>> list() {
+        return ResponseEntity.ok(itemPedidoCompraService.list());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<ItemPedidoCompra>> findById(@PathVariable Long id) {
+    public ResponseEntity<ItemPedidoCompraResponseDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(itemPedidoCompraService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<ItemPedidoCompra> create(@RequestBody ItemPedidoCompra itemPedidoCompra) {
-        ItemPedidoCompra novoItem = itemPedidoCompraService.save(itemPedidoCompra);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoItem);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ItemPedidoCompra> update(@PathVariable Long id, @RequestBody ItemPedidoCompra itemPedidoCompra) {
-        itemPedidoCompra.setId(id);
-        return ResponseEntity.ok(itemPedidoCompraService.save(itemPedidoCompra));
+    public ResponseEntity<ItemPedidoCompraResponseDTO> save(@Valid @RequestBody ItemPedidoCompraRequestDTO dto) {
+        return ResponseEntity.ok(itemPedidoCompraService.save(dto));
     }
 
     @DeleteMapping("/{id}")
