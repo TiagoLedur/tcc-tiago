@@ -4,7 +4,7 @@ import com.example.stock_control_api.model.enums.TipoMovimentacao;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class MovimentacaoRequestDTO {
@@ -19,7 +19,7 @@ public class MovimentacaoRequestDTO {
     private Double quantidade;
 
     @NotNull(message = "A data da movimentação é obrigatória.")
-    private LocalDate dataMovimentacao;
+    private LocalDateTime dataMovimentacao;
 
     private String observacao;
 }

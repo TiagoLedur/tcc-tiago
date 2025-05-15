@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -19,7 +19,7 @@ public class MovimentacaoResponseDTO {
     private String ingredienteNome;
     private TipoMovimentacao tipo;
     private Double quantidade;
-    private LocalDate dataMovimentacao;
+    private LocalDateTime dataMovimentacao;
     private String observacao;
 }
 

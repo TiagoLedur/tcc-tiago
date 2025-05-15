@@ -3,7 +3,7 @@ package com.example.stock_control_api.model;
 import com.example.stock_control_api.model.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movimentacoes_estoque")
@@ -29,7 +29,7 @@ public class Movimentacao {
     private Double quantidade;
 
     @Column(name = "data_movimentacao", nullable = false)
-    private LocalDate dataMovimentacao;
+    private LocalDateTime dataMovimentacao;
 
     private String observacao;
 }
