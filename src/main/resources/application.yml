@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://solely-exemplary-primate.data-1.use1.tembo.io:5432/estoque-inteligente
+    url: jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:5432/postgres?user=postgres.rgmlqcvhiemfwuturtob
     username: postgres
     password: ${SENHA}
     driver-class-name: org.postgresql.Driver
