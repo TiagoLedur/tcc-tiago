@@ -1,9 +1,10 @@
 package com.example.stock_control_api.repository;
 
-import com.example.stock_control_api.model.ItensSaida;
+import com.example.stock_control_api.model.Entrada;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovimentacaoRepository extends JpaRepository<ItensSaida, Long> {
+public interface EntradaRepository extends JpaRepository<Entrada, Long> {
+
 }
