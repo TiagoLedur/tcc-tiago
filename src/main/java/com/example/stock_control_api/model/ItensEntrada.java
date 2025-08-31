@@ -10,16 +10,16 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "itens_pedido_compra")
-public class ItemPedidoCompra {
+@Table(name = "itens_entrada")
+public class ItensEntrada {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id", nullable = false)
-    private PedidoCompra pedido;
+    @JoinColumn(name = "entrada_id", nullable = false)
+    private Entrada entrada;
 
     @ManyToOne
     @JoinColumn(name = "ingrediente_id", nullable = false)
@@ -29,6 +29,6 @@ public class ItemPedidoCompra {
     private BigDecimal quantidade;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal precoUnitario;
+    private BigDecimal precoTotal;
 }
 

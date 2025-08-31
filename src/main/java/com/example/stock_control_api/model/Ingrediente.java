@@ -27,9 +27,9 @@ public class Ingrediente {
     private Categoria categoria;
 
     @Column(name = "unidade_medida", nullable = false, length = 20)
-    private String unidadeMedida; // Ex: kg, litros, unidades
+    private String unidadeMedida;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
     @Column(name = "quantidade_total", nullable = false, precision = 10, scale = 2)

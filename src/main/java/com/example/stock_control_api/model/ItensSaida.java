@@ -1,9 +1,9 @@
 package com.example.stock_control_api.model;
 
-import com.example.stock_control_api.model.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "movimentacoes_estoque")
@@ -11,26 +11,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Movimentacao {
+public class ItensSaida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "saida_id", nullable = false)
+    private Saida saida;
+
+    @ManyToOne
     @JoinColumn(name = "ingrediente_id", nullable = false)
     private Ingrediente ingrediente;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoMovimentacao tipo;
 
     @Column(nullable = false)
     private Double quantidade;
 
-    @Column(name = "data_movimentacao", nullable = false)
-    private LocalDateTime dataMovimentacao;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal precoTotal;
 
-    private String observacao;
 }
 
