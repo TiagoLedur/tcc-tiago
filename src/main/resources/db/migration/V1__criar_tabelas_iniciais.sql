@@ -22,9 +22,20 @@ CREATE TABLE fornecedores (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Usuários do sistema
+CREATE TABLE usuarios (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    cargo VARCHAR(20) NOT NULL DEFAULT 'OPERADOR',
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE entradas (
     id BIGSERIAL PRIMARY KEY,
     fornecedor_id BIGINT REFERENCES fornecedores(id) ON DELETE SET NULL,
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
     data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -38,6 +49,7 @@ CREATE TABLE itens_entrada (
 
 CREATE TABLE saidas (
     id BIGSERIAL PRIMARY KEY,
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
     data_saida TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -47,4 +59,11 @@ CREATE TABLE itens_saida (
     ingrediente_id BIGINT REFERENCES ingredientes(id) ON DELETE CASCADE,
     quantidade DECIMAL(10,2) NOT NULL,
     preco_unitario DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE relatorios (
+    id BIGSERIAL PRIMARY KEY,
+    tipo VARCHAR(50) NOT NULL,
+    usuario_id BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
