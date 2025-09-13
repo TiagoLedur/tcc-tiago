@@ -22,7 +22,6 @@ CREATE TABLE fornecedores (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Usuários do sistema
 CREATE TABLE usuarios (
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
