@@ -5,20 +5,22 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "saidas")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Saida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @Column(name = "data_saida", updatable = false)
     private LocalDateTime dataSaida = LocalDateTime.now();
 }
-

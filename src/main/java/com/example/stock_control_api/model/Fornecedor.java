@@ -2,14 +2,15 @@ package com.example.stock_control_api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "fornecedores")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Fornecedor {
 
     @Id
@@ -22,11 +23,9 @@ public class Fornecedor {
     @Column(length = 100)
     private String contato;
 
-    @Column(length = 100, unique = true)
+    @Column(unique = true, length = 20)
     private String cnpj;
 
-    @Column(name = "criado_em", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime criadoEm;
-
+    @Column(name = "criado_em", updatable = false)
+    private LocalDateTime criadoEm = LocalDateTime.now();
 }
-

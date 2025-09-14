@@ -5,13 +5,12 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "entradas")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Entrada {
 
     @Id
@@ -19,10 +18,13 @@ public class Entrada {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "fornecedor_id", nullable = true)
+    @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime dataEntrada = LocalDateTime.now();
-}
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
+    @Column(name = "data_pedido", updatable = false)
+    private LocalDateTime dataPedido = LocalDateTime.now();
+}

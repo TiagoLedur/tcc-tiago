@@ -21,7 +21,7 @@ public class Relatorio {
     private String tipo;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_relatorio_usuario"))
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @Column(name = "criado_em", updatable = false)

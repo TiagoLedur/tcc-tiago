@@ -6,7 +6,7 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "movimentacoes_estoque")
+@Table(name = "itens_saida")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,11 +25,9 @@ public class ItensSaida {
     @JoinColumn(name = "ingrediente_id", nullable = false)
     private Ingrediente ingrediente;
 
-    @Column(nullable = false)
-    private Double quantidade;
-
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal precoTotal;
+    private BigDecimal quantidade;
 
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
+    private BigDecimal precoUnitario;
 }
-
