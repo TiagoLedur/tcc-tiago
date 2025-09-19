@@ -54,7 +54,7 @@ public class IngredienteService {
 
         existente.setNome(dto.getNome());
         existente.setUnidadeMedida(dto.getUnidadeMedida());
-        existente.setPreco(dto.getPreco());
+        existente.setPrecoUnitario(dto.getPreco());
         existente.setQuantidadeTotal(dto.getQuantidadeTotal());
         existente.setCategoria(categoria);
 
