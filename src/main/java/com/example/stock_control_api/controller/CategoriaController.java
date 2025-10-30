@@ -41,4 +41,15 @@ public class CategoriaController {
         Categoria categoria = categoriaService.findById(id);
         return ResponseEntity.ok(CategoriaMapper.toDTO(categoria));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaResponseDTO> update(@PathVariable Long id, @RequestBody CategoriaRequestDTO dto) {
+        return ResponseEntity.ok(categoriaService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        categoriaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
