@@ -5,7 +5,6 @@ import com.example.stock_control_api.dto.ingrediente.IngredienteResponseDTO;
 import com.example.stock_control_api.mapper.IngredienteMapper;
 import com.example.stock_control_api.model.Categoria;
 import com.example.stock_control_api.model.Ingrediente;
-
 import com.example.stock_control_api.repository.CategoriaRepository;
 import com.example.stock_control_api.repository.IngredienteRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,8 +26,9 @@ public class IngredienteService {
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
 
         Ingrediente ingrediente = IngredienteMapper.toEntity(dto, categoria);
-        ingrediente = ingredienteRepository.save(ingrediente);
+        ingrediente.setValidade(dto.getValidade());
 
+        ingrediente = ingredienteRepository.save(ingrediente);
         return IngredienteMapper.toDTO(ingrediente);
     }
 
@@ -56,6 +56,7 @@ public class IngredienteService {
         existente.setUnidadeMedida(dto.getUnidadeMedida());
         existente.setPrecoUnitario(dto.getPreco());
         existente.setQuantidadeTotal(dto.getQuantidadeTotal());
+        existente.setValidade(dto.getValidade());
         existente.setCategoria(categoria);
 
         return IngredienteMapper.toDTO(ingredienteRepository.save(existente));
@@ -68,4 +69,3 @@ public class IngredienteService {
         ingredienteRepository.deleteById(id);
     }
 }
-

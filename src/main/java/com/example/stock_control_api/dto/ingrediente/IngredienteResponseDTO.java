@@ -1,12 +1,12 @@
 package com.example.stock_control_api.dto.ingrediente;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,5 +20,6 @@ public class IngredienteResponseDTO {
     private String unidadeMedida;
     private BigDecimal preco;
     private BigDecimal quantidadeTotal;
+    private LocalDate validade;
     private LocalDateTime criadoEm;
 }

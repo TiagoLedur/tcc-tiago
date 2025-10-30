@@ -16,6 +16,7 @@ public class IngredienteMapper {
                 .unidadeMedida(dto.getUnidadeMedida())
                 .precoUnitario(dto.getPreco())
                 .quantidadeTotal(dto.getQuantidadeTotal())
+                .validade(dto.getValidade())
                 .categoria(categoria)
                 .build();
     }
@@ -27,6 +28,7 @@ public class IngredienteMapper {
                 .unidadeMedida(entity.getUnidadeMedida())
                 .preco(entity.getPrecoUnitario())
                 .quantidadeTotal(entity.getQuantidadeTotal())
+                .validade(entity.getValidade())
                 .categoriaId(entity.getCategoria() != null ? entity.getCategoria().getId() : null)
                 .criadoEm(entity.getCriadoEm())
                 .build();
