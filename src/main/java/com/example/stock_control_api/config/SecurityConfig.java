@@ -28,7 +28,6 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
 
-                // ✅ Configuração CORS integrada ao Spring Security
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOrigins(List.of("http://localhost:3100"));
