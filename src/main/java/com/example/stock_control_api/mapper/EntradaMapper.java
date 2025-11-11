@@ -14,7 +14,6 @@ public final class EntradaMapper {
         if (dto == null) return null;
 
         Entrada entrada = new Entrada();
-        entrada.setDataPedido(dto.getDataPedido());
 
         if (dto.getFornecedorId() != null) {
             Fornecedor f = new Fornecedor();
@@ -36,7 +35,6 @@ public final class EntradaMapper {
 
         EntradaResponseDTO dto = new EntradaResponseDTO();
         dto.setId(entity.getId());
-        dto.setDataPedido(entity.getDataPedido());
         dto.setFornecedorId(entity.getFornecedor() != null ? entity.getFornecedor().getId() : null);
         dto.setUsuarioId(entity.getUsuario() != null ? entity.getUsuario().getId() : null);
 

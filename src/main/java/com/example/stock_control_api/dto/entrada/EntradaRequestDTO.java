@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 public class EntradaRequestDTO {
     private Long fornecedorId;
     private Long usuarioId;
-    private LocalDateTime dataPedido;
+    private LocalDateTime dataEntrada;
 }

@@ -84,8 +84,6 @@ public class EntradaService {
             entrada.setUsuario(null);
         }
 
-        entrada.setDataPedido(dto.getDataPedido());
-
         entrada = entradaRepository.save(entrada);
         return EntradaMapper.toResponseDTO(entrada);
     }

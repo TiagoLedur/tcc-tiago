@@ -25,6 +25,6 @@ public class Entrada {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @Column(name = "data_pedido", updatable = false)
-    private LocalDateTime dataPedido = LocalDateTime.now();
+    @Column(name = "data_entrada", updatable = false)
+    private LocalDateTime dataEntrada = LocalDateTime.now();
 }

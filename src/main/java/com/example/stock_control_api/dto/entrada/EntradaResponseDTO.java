@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 public class EntradaResponseDTO {
     private Long id;
     private Long fornecedorId;
-    private Long usuarioId; // novo campo
-    private LocalDateTime dataPedido;
+    private Long usuarioId;
+    private LocalDateTime dataEntrada;
 }
