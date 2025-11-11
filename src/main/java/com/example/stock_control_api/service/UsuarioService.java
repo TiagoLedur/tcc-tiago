@@ -43,7 +43,9 @@ public class UsuarioService {
 
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
-        usuario.setSenha(dto.getSenha());
+        if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
+            usuario.setSenha((dto.getSenha()));
+        }
         usuario.setCargo(dto.getCargo());
 
         usuario = usuarioRepository.save(usuario);
