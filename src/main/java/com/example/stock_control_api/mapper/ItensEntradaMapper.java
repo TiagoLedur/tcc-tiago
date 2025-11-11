@@ -15,7 +15,6 @@ public final class ItensEntradaMapper {
 
         ItensEntrada item = new ItensEntrada();
         item.setQuantidade(dto.getQuantidade());
-        item.setPrecoUnitario(dto.getPrecoUnitario());
 
         if (dto.getEntradaId() != null) {
             Entrada entrada = new Entrada();
@@ -38,7 +37,6 @@ public final class ItensEntradaMapper {
         ItensEntradaResponseDTO dto = new ItensEntradaResponseDTO();
         dto.setId(entity.getId());
         dto.setQuantidade(entity.getQuantidade());
-        dto.setPrecoUnitario(entity.getPrecoUnitario());
         dto.setEntradaId(entity.getEntrada() != null ? entity.getEntrada().getId() : null);
         dto.setIngredienteId(entity.getIngrediente() != null ? entity.getIngrediente().getId() : null);
 

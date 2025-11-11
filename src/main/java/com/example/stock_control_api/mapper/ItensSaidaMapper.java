@@ -15,7 +15,6 @@ public final class ItensSaidaMapper {
 
         ItensSaida item = new ItensSaida();
         item.setQuantidade(dto.getQuantidade());
-        item.setPrecoUnitario(dto.getPrecoUnitario());
 
         if (dto.getSaidaId() != null) {
             Saida saida = new Saida();
@@ -38,7 +37,6 @@ public final class ItensSaidaMapper {
         ItensSaidaResponseDTO dto = new ItensSaidaResponseDTO();
         dto.setId(entity.getId());
         dto.setQuantidade(entity.getQuantidade());
-        dto.setPrecoUnitario(entity.getPrecoUnitario());
         dto.setSaidaId(entity.getSaida() != null ? entity.getSaida().getId() : null);
         dto.setIngredienteId(entity.getIngrediente() != null ? entity.getIngrediente().getId() : null);
 

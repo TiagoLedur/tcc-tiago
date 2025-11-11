@@ -68,7 +68,6 @@ public class ItensSaidaService {
         item.setSaida(s);
         item.setIngrediente(ingrediente);
         item.setQuantidade(dto.getQuantidade());
-        item.setPrecoUnitario(dto.getPrecoUnitario());
 
         item = itensSaidaRepository.save(item);
         return ItensSaidaMapper.toResponseDTO(item);

@@ -68,7 +68,6 @@ public class ItensEntradaService {
         item.setEntrada(entrada);
         item.setIngrediente(ingrediente);
         item.setQuantidade(dto.getQuantidade());
-        item.setPrecoUnitario(dto.getPrecoUnitario());
 
         item = itensEntradaRepository.save(item);
         return ItensEntradaMapper.toResponseDTO(item);

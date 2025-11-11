@@ -28,6 +28,5 @@ public class ItensEntrada {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal quantidade;
 
-    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
-    private BigDecimal precoUnitario;
+
 }

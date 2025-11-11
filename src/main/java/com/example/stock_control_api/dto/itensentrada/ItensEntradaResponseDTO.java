@@ -13,5 +13,4 @@ public class ItensEntradaResponseDTO {
     private Long entradaId;
     private Long ingredienteId;
     private BigDecimal quantidade;
-    private BigDecimal precoUnitario;
 }
