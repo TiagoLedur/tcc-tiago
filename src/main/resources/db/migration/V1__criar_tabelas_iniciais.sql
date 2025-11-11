@@ -35,15 +35,14 @@ CREATE TABLE entradas (
     id BIGSERIAL PRIMARY KEY,
     fornecedor_id BIGINT REFERENCES fornecedores(id) ON DELETE SET NULL,
     usuario_id BIGINT REFERENCES usuarios(id) ON DELETE SET NULL,
-    data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    data_entrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE itens_entrada (
     id BIGSERIAL PRIMARY KEY,
     entradas_id BIGINT REFERENCES entradas(id) ON DELETE CASCADE,
     ingrediente_id BIGINT REFERENCES ingredientes(id) ON DELETE CASCADE,
-    quantidade DECIMAL(10,2) NOT NULL,
-    preco_unitario DECIMAL(10,2) NOT NULL
+    quantidade DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE saidas (
@@ -56,8 +55,7 @@ CREATE TABLE itens_saida (
     id BIGSERIAL PRIMARY KEY,
     saida_id BIGINT REFERENCES saidas(id) ON DELETE CASCADE,
     ingrediente_id BIGINT REFERENCES ingredientes(id) ON DELETE CASCADE,
-    quantidade DECIMAL(10,2) NOT NULL,
-    preco_unitario DECIMAL(10,2) NOT NULL
+    quantidade DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE relatorios (
