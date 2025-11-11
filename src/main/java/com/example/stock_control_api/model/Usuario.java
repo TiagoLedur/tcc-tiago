@@ -1,5 +1,5 @@
 package com.example.stock_control_api.model;
-
+import com.example.stock_control_api.model.enums.Cargo;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,8 +26,9 @@ public class Usuario {
     @Column(nullable = false, length = 255)
     private String senha;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String cargo = "OPERADOR";
+    private Cargo cargo = Cargo.OPERADOR;
 
     @Column(name = "criado_em", updatable = false)
     private LocalDateTime criadoEm = LocalDateTime.now();
