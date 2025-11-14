@@ -19,9 +19,10 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String gerarToken(String email, Cargo cargo) {
+    public String gerarToken(Long id, String email, Cargo cargo) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("id", id)
                 .claim("cargo", cargo.name())
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))

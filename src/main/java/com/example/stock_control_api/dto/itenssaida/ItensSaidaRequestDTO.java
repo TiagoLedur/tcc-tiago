@@ -21,7 +21,4 @@ public class ItensSaidaRequestDTO {
     @DecimalMin(value = "0.01", message = "A quantidade deve ser maior que zero")
     private BigDecimal quantidade;
 
-    @NotNull(message = "O preço unitário é obrigatório")
-    @DecimalMin(value = "0.01", message = "O preço unitário deve ser maior que zero")
-    private BigDecimal precoUnitario;
 }

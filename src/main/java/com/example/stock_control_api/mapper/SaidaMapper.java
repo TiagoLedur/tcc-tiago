@@ -13,8 +13,7 @@ public final class SaidaMapper {
         if (dto == null) return null;
 
         Saida saida = new Saida();
-        saida.setDataSaida(dto.getDataSaida());
-
+        
         if (dto.getUsuarioId() != null) {
             Usuario u = new Usuario();
             u.setId(dto.getUsuarioId());
@@ -31,8 +30,8 @@ public final class SaidaMapper {
         dto.setId(entity.getId());
         dto.setDataSaida(entity.getDataSaida());
         dto.setUsuarioId(entity.getUsuario() != null ? entity.getUsuario().getId() : null);
+        dto.setNomeUsuario(entity.getUsuario() != null ? entity.getUsuario().getNome() : null);
 
         return dto;
     }
 }
-

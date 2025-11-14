@@ -11,6 +11,7 @@ import com.example.stock_control_api.repository.ItensEntradaRepository;
 import com.example.stock_control_api.repository.IngredienteRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,12 @@ public class ItensEntradaService {
         item.setIngrediente(ingrediente);
 
         item = itensEntradaRepository.save(item);
+
+        BigDecimal atual = ingrediente.getQuantidadeTotal();
+        BigDecimal soma = atual.add(dto.getQuantidade());
+        ingrediente.setQuantidadeTotal(soma);
+        ingredienteRepository.save(ingrediente);
+
         return ItensEntradaMapper.toResponseDTO(item);
     }
 

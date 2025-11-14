@@ -1,10 +1,11 @@
 package com.example.stock_control_api.dto.saida;
 
 import lombok.Data;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Data
 public class SaidaRequestDTO {
     private Long usuarioId;
-    private LocalDateTime dataSaida;
+    private Long ingredienteId;
+    private BigDecimal quantidade;
 }

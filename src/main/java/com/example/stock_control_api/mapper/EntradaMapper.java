@@ -4,7 +4,6 @@ import com.example.stock_control_api.dto.entrada.EntradaRequestDTO;
 import com.example.stock_control_api.dto.entrada.EntradaResponseDTO;
 import com.example.stock_control_api.model.Entrada;
 import com.example.stock_control_api.model.Fornecedor;
-import com.example.stock_control_api.model.Usuario;
 
 public final class EntradaMapper {
 
@@ -21,12 +20,6 @@ public final class EntradaMapper {
             entrada.setFornecedor(f);
         }
 
-        if (dto.getUsuarioId() != null) {
-            Usuario u = new Usuario();
-            u.setId(dto.getUsuarioId());
-            entrada.setUsuario(u);
-        }
-
         return entrada;
     }
 
@@ -37,6 +30,8 @@ public final class EntradaMapper {
         dto.setId(entity.getId());
         dto.setFornecedorId(entity.getFornecedor() != null ? entity.getFornecedor().getId() : null);
         dto.setUsuarioId(entity.getUsuario() != null ? entity.getUsuario().getId() : null);
+        dto.setUsuarioNome(entity.getUsuario().getNome());
+        dto.setDataEntrada(entity.getDataEntrada());
 
         return dto;
     }

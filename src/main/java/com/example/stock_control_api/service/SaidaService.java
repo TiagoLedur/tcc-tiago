@@ -30,18 +30,18 @@ public class SaidaService {
     }
 
     public SaidaResponseDTO findById(Long id) {
-        Saida s = saidaRepository.findById(id)
+        Saida saida = saidaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Saída não encontrada"));
-        return SaidaMapper.toResponseDTO(s);
+        return SaidaMapper.toResponseDTO(saida);
     }
 
     public SaidaResponseDTO save(SaidaRequestDTO dto) {
         Saida saida = SaidaMapper.toEntity(dto);
 
         if (dto.getUsuarioId() != null) {
-            Usuario u = usuarioRepository.findById(dto.getUsuarioId())
+            Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                     .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            saida.setUsuario(u);
+            saida.setUsuario(usuario);
         } else {
             saida.setUsuario(null);
         }
@@ -55,14 +55,12 @@ public class SaidaService {
                 .orElseThrow(() -> new RuntimeException("Saída não encontrada"));
 
         if (dto.getUsuarioId() != null) {
-            Usuario u = usuarioRepository.findById(dto.getUsuarioId())
+            Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                     .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            saida.setUsuario(u);
+            saida.setUsuario(usuario);
         } else {
             saida.setUsuario(null);
         }
-
-        saida.setDataSaida(dto.getDataSaida());
 
         saida = saidaRepository.save(saida);
         return SaidaMapper.toResponseDTO(saida);

@@ -8,5 +8,6 @@ public class EntradaResponseDTO {
     private Long id;
     private Long fornecedorId;
     private Long usuarioId;
+    private String usuarioNome;
     private LocalDateTime dataEntrada;
 }

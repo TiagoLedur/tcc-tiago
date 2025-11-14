@@ -27,7 +27,7 @@ public class AuthService {
         Usuario usuario = usuarioRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        String token = jwtUtil.gerarToken(usuario.getEmail(), usuario.getCargo());
+        String token = jwtUtil.gerarToken(usuario.getId(), usuario.getEmail(), usuario.getCargo());
         return new LoginResponseDTO(token);
     }
 

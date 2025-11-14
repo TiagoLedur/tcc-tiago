@@ -5,6 +5,7 @@ import com.example.stock_control_api.dto.usuario.UsuarioResponseDTO;
 import com.example.stock_control_api.mapper.UsuarioMapper;
 import com.example.stock_control_api.model.Usuario;
 import com.example.stock_control_api.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UsuarioResponseDTO> findAll() {
@@ -33,6 +36,7 @@ public class UsuarioService {
 
     public UsuarioResponseDTO save(UsuarioRequestDTO dto) {
         Usuario usuario = UsuarioMapper.toEntity(dto);
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuario = usuarioRepository.save(usuario);
         return UsuarioMapper.toDTO(usuario);
     }
@@ -43,10 +47,11 @@ public class UsuarioService {
 
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
-        if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
-            usuario.setSenha((dto.getSenha()));
-        }
         usuario.setCargo(dto.getCargo());
+
+        if (dto.getSenha() != null && !dto.getSenha().isBlank()) {
+            usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
+        }
 
         usuario = usuarioRepository.save(usuario);
         return UsuarioMapper.toDTO(usuario);

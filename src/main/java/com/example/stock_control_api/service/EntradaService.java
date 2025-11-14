@@ -9,6 +9,8 @@ import com.example.stock_control_api.model.Usuario;
 import com.example.stock_control_api.repository.EntradaRepository;
 import com.example.stock_control_api.repository.FornecedorRepository;
 import com.example.stock_control_api.repository.UsuarioRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,17 +50,14 @@ public class EntradaService {
             Fornecedor f = fornecedorRepository.findById(dto.getFornecedorId())
                     .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
             entrada.setFornecedor(f);
-        } else {
-            entrada.setFornecedor(null);
         }
 
-        if (dto.getUsuarioId() != null) {
-            Usuario u = usuarioRepository.findById(dto.getUsuarioId())
-                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            entrada.setUsuario(u);
-        } else {
-            entrada.setUsuario(null);
-        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado"));
+
+        entrada.setUsuario(usuario);
 
         entrada = entradaRepository.save(entrada);
         return EntradaMapper.toResponseDTO(entrada);
@@ -76,13 +75,12 @@ public class EntradaService {
             entrada.setFornecedor(null);
         }
 
-        if (dto.getUsuarioId() != null) {
-            Usuario u = usuarioRepository.findById(dto.getUsuarioId())
-                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-            entrada.setUsuario(u);
-        } else {
-            entrada.setUsuario(null);
-        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário autenticado não encontrado"));
+
+        entrada.setUsuario(usuario);
 
         entrada = entradaRepository.save(entrada);
         return EntradaMapper.toResponseDTO(entrada);
