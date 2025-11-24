@@ -10,12 +10,14 @@ import com.example.stock_control_api.repository.EntradaRepository;
 import com.example.stock_control_api.repository.ItensEntradaRepository;
 import com.example.stock_control_api.repository.IngredienteRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ItensEntradaService {
 
     private final ItensEntradaRepository itensEntradaRepository;
@@ -67,23 +69,61 @@ public class ItensEntradaService {
         ItensEntrada item = itensEntradaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item de entrada não encontrado"));
 
+        Ingrediente ingredienteAntigo = item.getIngrediente();
+        BigDecimal quantidadeAntiga = item.getQuantidade();
+
         Entrada entrada = entradaRepository.findById(dto.getEntradaId())
                 .orElseThrow(() -> new RuntimeException("Entrada não encontrada"));
-        Ingrediente ingrediente = ingredienteRepository.findById(dto.getIngredienteId())
+        Ingrediente ingredienteNovo = ingredienteRepository.findById(dto.getIngredienteId())
                 .orElseThrow(() -> new RuntimeException("Ingrediente não encontrado"));
 
+        // Atualiza item
         item.setEntrada(entrada);
-        item.setIngrediente(ingrediente);
+        item.setIngrediente(ingredienteNovo);
         item.setQuantidade(dto.getQuantidade());
 
         item = itensEntradaRepository.save(item);
+
+        if (!ingredienteAntigo.getId().equals(ingredienteNovo.getId())) {
+
+            ingredienteAntigo.setQuantidadeTotal(
+                    ingredienteAntigo.getQuantidadeTotal().subtract(quantidadeAntiga)
+            );
+            ingredienteRepository.save(ingredienteAntigo);
+
+            ingredienteNovo.setQuantidadeTotal(
+                    ingredienteNovo.getQuantidadeTotal().add(dto.getQuantidade())
+            );
+            ingredienteRepository.save(ingredienteNovo);
+
+        } else {
+            BigDecimal diferenca = dto.getQuantidade().subtract(quantidadeAntiga);
+            ingredienteNovo.setQuantidadeTotal(
+                    ingredienteNovo.getQuantidadeTotal().add(diferenca)
+            );
+            ingredienteRepository.save(ingredienteNovo);
+        }
+
         return ItensEntradaMapper.toResponseDTO(item);
     }
 
     public void delete(Long id) {
-        if (!itensEntradaRepository.existsById(id)) {
-            throw new RuntimeException("Item de entrada não encontrado");
-        }
+        ItensEntrada item = itensEntradaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item de entrada não encontrado"));
+
+        Ingrediente ingrediente = item.getIngrediente();
+
+        ingrediente.setQuantidadeTotal(
+                ingrediente.getQuantidadeTotal().subtract(item.getQuantidade())
+        );
+        ingredienteRepository.save(ingrediente);
+
+        Long entradaId = item.getEntrada().getId();
+
         itensEntradaRepository.deleteById(id);
+
+        if (!itensEntradaRepository.existsByEntradaId(entradaId)) {
+            entradaRepository.deleteById(entradaId);
+        }
     }
 }

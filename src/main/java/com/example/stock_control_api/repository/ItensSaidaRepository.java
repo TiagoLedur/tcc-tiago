@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ItensSaidaRepository extends JpaRepository<ItensSaida, Long> {
-
+    boolean existsBySaidaId(Long saidaId);
 }

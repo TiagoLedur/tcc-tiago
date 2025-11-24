@@ -10,12 +10,14 @@ import com.example.stock_control_api.repository.IngredienteRepository;
 import com.example.stock_control_api.repository.ItensSaidaRepository;
 import com.example.stock_control_api.repository.SaidaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ItensSaidaService {
 
     private final ItensSaidaRepository itensSaidaRepository;
@@ -99,14 +101,22 @@ public class ItensSaidaService {
     }
 
     public void delete(Long id) {
+        // Buscar item
         ItensSaida item = itensSaidaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item de saída não encontrado"));
 
+        Long saidaId = item.getSaida().getId();
 
         Ingrediente ingrediente = item.getIngrediente();
-        ingrediente.setQuantidadeTotal(ingrediente.getQuantidadeTotal().add(item.getQuantidade()));
+        ingrediente.setQuantidadeTotal(
+                ingrediente.getQuantidadeTotal().add(item.getQuantidade())
+        );
         ingredienteRepository.save(ingrediente);
 
         itensSaidaRepository.delete(item);
+
+        if (!itensSaidaRepository.existsBySaidaId(saidaId)) {
+            saidaRepository.deleteById(saidaId);
+        }
     }
 }

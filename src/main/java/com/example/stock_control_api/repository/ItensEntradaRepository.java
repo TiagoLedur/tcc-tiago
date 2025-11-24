@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ItensEntradaRepository extends JpaRepository<ItensEntrada, Long> {
-
+    boolean existsByEntradaId(Long entradaId);
 }
