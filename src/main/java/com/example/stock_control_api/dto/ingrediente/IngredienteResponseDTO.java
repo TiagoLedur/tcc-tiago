@@ -20,6 +20,7 @@ public class IngredienteResponseDTO {
     private String unidadeMedida;
     private BigDecimal preco;
     private BigDecimal quantidadeTotal;
+    private BigDecimal quantidadeMinima;
     private LocalDate validade;
     private LocalDateTime criadoEm;
 }

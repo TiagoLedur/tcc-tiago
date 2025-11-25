@@ -23,6 +23,10 @@ public class IngredienteRequestDTO {
     @DecimalMin(value = "0.0", inclusive = true, message = "A quantidade total deve ser maior ou igual a zero.")
     private BigDecimal quantidadeTotal;
 
+    @NotNull(message = "A quantidade mínima é obrigatória.")
+    @DecimalMin(value = "0.0", inclusive = true, message = "A quantidade mínima deve ser maior ou igual a zero.")
+    private BigDecimal quantidadeMinima;
+
     @NotNull(message = "A validade é obrigatória")
     private LocalDate validade;
 

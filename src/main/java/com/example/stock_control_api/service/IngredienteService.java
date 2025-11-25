@@ -26,7 +26,8 @@ public class IngredienteService {
                 .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada"));
 
         Ingrediente ingrediente = IngredienteMapper.toEntity(dto, categoria);
-        ingrediente.setValidade(dto.getValidade());
+        ingrediente.setQuantidadeMinima(dto.getQuantidadeMinima());
+        ingrediente.setQuantidadeTotal(dto.getQuantidadeTotal()); // continuará vindo 0 no DTO
 
         ingrediente = ingredienteRepository.save(ingrediente);
         return IngredienteMapper.toDTO(ingrediente);
@@ -55,9 +56,9 @@ public class IngredienteService {
         existente.setNome(dto.getNome());
         existente.setUnidadeMedida(dto.getUnidadeMedida());
         existente.setPrecoUnitario(dto.getPreco());
-        existente.setQuantidadeTotal(dto.getQuantidadeTotal());
         existente.setValidade(dto.getValidade());
         existente.setCategoria(categoria);
+        existente.setQuantidadeMinima(dto.getQuantidadeMinima());
 
         return IngredienteMapper.toDTO(ingredienteRepository.save(existente));
     }

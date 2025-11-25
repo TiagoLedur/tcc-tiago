@@ -2,7 +2,6 @@ package com.example.stock_control_api.controller;
 
 import com.example.stock_control_api.dto.ingrediente.IngredienteRequestDTO;
 import com.example.stock_control_api.dto.ingrediente.IngredienteResponseDTO;
-
 import com.example.stock_control_api.service.IngredienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,4 +45,3 @@ public class IngredienteController {
         return ResponseEntity.noContent().build();
     }
 }
-
