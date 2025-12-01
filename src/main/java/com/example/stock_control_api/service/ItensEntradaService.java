@@ -77,7 +77,6 @@ public class ItensEntradaService {
         Ingrediente ingredienteNovo = ingredienteRepository.findById(dto.getIngredienteId())
                 .orElseThrow(() -> new RuntimeException("Ingrediente não encontrado"));
 
-        // Atualiza item
         item.setEntrada(entrada);
         item.setIngrediente(ingredienteNovo);
         item.setQuantidade(dto.getQuantidade());

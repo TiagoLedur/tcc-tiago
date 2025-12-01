@@ -38,7 +38,7 @@ public class Ingrediente {
     @Column(name = "quantidade_minima", nullable = false, precision = 10, scale = 2)
     private BigDecimal quantidadeMinima = BigDecimal.ZERO;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "DATE")
     private LocalDate validade;
 
     @Column(name = "criado_em", updatable = false)

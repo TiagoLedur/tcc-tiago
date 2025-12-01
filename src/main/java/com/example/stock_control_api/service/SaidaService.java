@@ -7,8 +7,10 @@ import com.example.stock_control_api.model.Saida;
 import com.example.stock_control_api.model.Usuario;
 import com.example.stock_control_api.repository.SaidaRepository;
 import com.example.stock_control_api.repository.UsuarioRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,5 +73,33 @@ public class SaidaService {
             throw new RuntimeException("Saída não encontrada");
         }
         saidaRepository.deleteById(id);
+    }
+
+    public List<SaidaResponseDTO> filtrarSaidas(Long id,
+                                                Long usuarioId,
+                                                Long ingredienteId,
+                                                LocalDateTime dataInicio,
+                                                LocalDateTime dataFim,
+                                                String sortBy,
+                                                Sort.Direction direction) {
+
+        List<Saida> saidas = saidaRepository.filtrarSaidas(
+                id, usuarioId, ingredienteId, dataInicio, dataFim
+        );
+
+        if (sortBy != null && direction != null) {
+
+            if ("dataSaida".equals(sortBy)) {
+                saidas.sort((s1, s2) ->
+                        direction.isAscending()
+                                ? s1.getDataSaida().compareTo(s2.getDataSaida())
+                                : s2.getDataSaida().compareTo(s1.getDataSaida())
+                );
+            }
+        }
+
+        return saidas.stream()
+                .map(SaidaMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 }

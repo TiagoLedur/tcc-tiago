@@ -9,10 +9,12 @@ import com.example.stock_control_api.model.Usuario;
 import com.example.stock_control_api.repository.EntradaRepository;
 import com.example.stock_control_api.repository.FornecedorRepository;
 import com.example.stock_control_api.repository.UsuarioRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -92,4 +94,34 @@ public class EntradaService {
         }
         entradaRepository.deleteById(id);
     }
+
+    public List<EntradaResponseDTO> filtrarEntradas(Long id,
+                                                    Long fornecedorId,
+                                                    Long ingredienteId,
+                                                    LocalDateTime dataInicio,
+                                                    LocalDateTime dataFim,
+                                                    String sortBy,
+                                                    Sort.Direction direction) {
+
+        List<Entrada> entradas = entradaRepository.filtrarEntradas(
+                id, fornecedorId, ingredienteId, dataInicio, dataFim
+        );
+
+        if (sortBy != null && direction != null) {
+
+            if ("dataEntrada".equals(sortBy)) {
+                entradas.sort((e1, e2) ->
+                        direction.isAscending()
+                                ? e1.getDataEntrada().compareTo(e2.getDataEntrada())
+                                : e2.getDataEntrada().compareTo(e1.getDataEntrada())
+                );
+            }
+        }
+
+        return entradas.stream()
+                .map(EntradaMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,31 @@ public class ItensSaidaService {
         return ItensSaidaMapper.toResponseDTO(item);
     }
 
+    /**
+     * NOVO MÉTODO: Valida múltiplos itens ANTES de salvar qualquer um
+     * Lança exceção com detalhes dos ingredientes com estoque insuficiente
+     */
+    public void validarEstoqueParaMultiplosItens(List<ItensSaidaRequestDTO> itens) {
+        List<String> erros = new ArrayList<>();
+
+        for (ItensSaidaRequestDTO dto : itens) {
+            Ingrediente ingrediente = ingredienteRepository.findById(dto.getIngredienteId())
+                    .orElseThrow(() -> new RuntimeException("Ingrediente ID " + dto.getIngredienteId() + " não encontrado"));
+
+            BigDecimal estoqueAtual = ingrediente.getQuantidadeTotal();
+            BigDecimal quantidadeNecessaria = dto.getQuantidade();
+
+            if (estoqueAtual.compareTo(quantidadeNecessaria) < 0) {
+                erros.add(ingrediente.getNome());
+            }
+        }
+
+        if (!erros.isEmpty()) {
+            String mensagem = "Estoque insuficiente para os seguintes ingredientes:\n" + String.join("\n", erros);
+            throw new RuntimeException(mensagem);
+        }
+    }
+
     public ItensSaidaResponseDTO save(ItensSaidaRequestDTO dto) {
         ItensSaida item = ItensSaidaMapper.toEntity(dto);
 
@@ -52,14 +78,12 @@ public class ItensSaidaService {
         Ingrediente ingrediente = ingredienteRepository.findById(dto.getIngredienteId())
                 .orElseThrow(() -> new RuntimeException("Ingrediente não encontrado"));
 
-
         BigDecimal estoqueAtual = ingrediente.getQuantidadeTotal();
         BigDecimal novaQuantidade = estoqueAtual.subtract(dto.getQuantidade());
 
         if (novaQuantidade.compareTo(BigDecimal.ZERO) < 0) {
-            throw new RuntimeException("Estoque insuficiente para realizar a saída.");
+            throw new RuntimeException("Estoque insuficiente para: " + ingrediente.getNome());
         }
-
 
         ingrediente.setQuantidadeTotal(novaQuantidade);
         ingredienteRepository.save(ingrediente);
@@ -78,12 +102,13 @@ public class ItensSaidaService {
         Ingrediente ingrediente = ingredienteRepository.findById(dto.getIngredienteId())
                 .orElseThrow(() -> new RuntimeException("Ingrediente não encontrado"));
 
-
+        // Devolve a quantidade antiga ao estoque
         BigDecimal estoqueAtual = ingrediente.getQuantidadeTotal().add(item.getQuantidade());
+        // Subtrai a nova quantidade
         BigDecimal novoEstoque = estoqueAtual.subtract(dto.getQuantidade());
 
         if (novoEstoque.compareTo(BigDecimal.ZERO) < 0) {
-            throw new RuntimeException("Estoque insuficiente para atualizar a saída.");
+            throw new RuntimeException("Estoque insuficiente para: " + ingrediente.getNome());
         }
 
         ingrediente.setQuantidadeTotal(novoEstoque);
@@ -101,7 +126,6 @@ public class ItensSaidaService {
     }
 
     public void delete(Long id) {
-        // Buscar item
         ItensSaida item = itensSaidaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item de saída não encontrado"));
 

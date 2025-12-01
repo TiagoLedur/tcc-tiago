@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "saidas")
@@ -23,4 +24,7 @@ public class Saida {
 
     @Column(name = "data_saida", updatable = false)
     private LocalDateTime dataSaida = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "saida", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItensSaida> itensSaida;
 }
