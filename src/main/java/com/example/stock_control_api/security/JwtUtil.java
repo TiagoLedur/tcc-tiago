@@ -25,7 +25,7 @@ public class JwtUtil {
                 .claim("id", id)
                 .claim("cargo", cargo.name())
                 .setIssuedAt(new Date())
-                .setExpiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
+                .setExpiration(Date.from(Instant.now().plus(2, ChronoUnit.HOURS)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
